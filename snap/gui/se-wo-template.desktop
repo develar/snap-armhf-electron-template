@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Snap Electron App (full build)
+Exec=se-wo-template
+Terminal=false
+Type=Application
+Icon=${SNAP}/meta/gui/icon.png
+StartupWMClass=Snap Electron App (full build)
+Comment=Test Application (test quite “ #378)
+Categories=Development;
