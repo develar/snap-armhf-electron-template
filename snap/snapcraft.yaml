@@ -137,7 +137,7 @@ plugs:
     interface: content
     target: $SNAP/data-dir/sounds
     default-provider: gtk-common-themes
-name: se-wo-template
+name: armhf-electron-template-snap
 version: 1.1.0
 summary: Snap Electron App (full build)
 description: 'Test Application (test quite “ #378)'
