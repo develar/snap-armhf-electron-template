@@ -162,5 +162,5 @@ apps:
       TMPDIR: $XDG_RUNTIME_DIR
       PATH: '$SNAP/usr/sbin:$SNAP/usr/bin:$SNAP/sbin:$SNAP/bin:$PATH'
       SNAP_DESKTOP_RUNTIME: $SNAP/gnome-platform
-      LD_LIBRARY_PATH: '$SNAP_LIBRARY_PATH:$SNAP/lib:$SNAP/usr/lib:$SNAP/lib/arm-linux-gnu:$SNAP/usr/lib/arm-linux-gnu:$LD_LIBRARY_PATH:$SNAP/lib:$SNAP/usr/lib:$SNAP/lib/arm-linux-gnu:$SNAP/usr/lib/arm-linux-gnu'
+      LD_LIBRARY_PATH: '$SNAP_LIBRARY_PATH:$SNAP/lib:$SNAP/usr/lib:$SNAP/lib/arm-linux-gnueabihf:$SNAP/usr/lib/arm-linux-gnueabihf:$LD_LIBRARY_PATH:$SNAP/lib:$SNAP/usr/lib:$SNAP/lib/arm-linux-gnueabihf:$SNAP/usr/lib/arm-linux-gnueabihf'
 icon: snap/gui/icon.png
