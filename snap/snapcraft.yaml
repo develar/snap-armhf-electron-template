@@ -22,7 +22,8 @@ parts:
     stage:
       - '-usr/lib/python*'
       - '-usr/bin/python*'
-      - '-var/lib/ucf'
+      - '-var'
+      - '-etc'
       - '-usr/include'
       - '-usr/lib/X11'
       - '-usr/share'
