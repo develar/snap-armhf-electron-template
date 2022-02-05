@@ -204,13 +204,20 @@ fi
 # Create links for user-dirs.dirs
 if [ $needs_xdg_links = true ]; then
   for ((i = 0; i < ${#XDG_SPECIAL_DIRS_PATHS[@]}; i++)); do
-    b="$(realpath "${XDG_SPECIAL_DIRS_PATHS[$i]}" --relative-to="$HOME")"
+    b="$(realpath -se "${XDG_SPECIAL_DIRS_PATHS[$i]}" --relative-to="$REALHOME")"
+    if [ "$b" = "." -o "$b" = ".." ] ; then
+      continue
+    fi
     if [ -e "$REALHOME/$b" ]; then
       if [ -d "$HOME/$b" ]; then
-        rmdir "$HOME/$b" 2> /dev/null
+		if [ -h "$HOME/$b" ]; then
+		  rm "$HOME/$b" 2> /dev/null||true
+		else
+          rmdir "$HOME/$b" 2> /dev/null||true
+		fi
       fi
       if [ ! -e "$HOME/$b" ]; then
-        ln -s "$REALHOME/$b" "$HOME/$b"
+        ln -s "$REALHOME/$b" "$HOME/$b" 2> /dev/null||true
       fi
     fi
   done
@@ -387,8 +394,8 @@ append_dir LD_LIBRARY_PATH "$SNAP/testability/$SNAP_DESKTOP_ARCH_TRIPLET/mesa"
 # Gdk-pixbuf loaders
 export GDK_PIXBUF_MODULE_FILE=$XDG_CACHE_HOME/gdk-pixbuf-loaders.cache
 export GDK_PIXBUF_MODULEDIR=$SNAP_DESKTOP_RUNTIME/usr/lib/$SNAP_DESKTOP_ARCH_TRIPLET/gdk-pixbuf-2.0/2.10.0/loaders
-if [ "$SNAP_DESKTOP_COMPONENTS_NEED_UPDATE" = "true" ]; then
-  rm -f "$GDK_PIXBUF_MODULE_FILE"
+if [ "$SNAP_DESKTOP_COMPONENTS_NEED_UPDATE" = "true" -o ! -e $GDK_PIXBUF_MODULE_FILE ]; then
+  rm -f "$GDK_PIXBUF_MODULE_FILE" 2> /dev/null||true
   if [ -f "$SNAP_DESKTOP_RUNTIME/usr/lib/$SNAP_DESKTOP_ARCH_TRIPLET/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders" ]; then
     "$SNAP_DESKTOP_RUNTIME/usr/lib/$SNAP_DESKTOP_ARCH_TRIPLET/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders" > "$GDK_PIXBUF_MODULE_FILE"
   fi
